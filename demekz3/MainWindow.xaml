@@ -93,7 +93,9 @@
                                 Width="50"
                                 Margin="10, 5, 15, 5">
                                 <Image.Source>
-                                    <Binding Path="ImagePreview">
+                                    <Binding 
+                                        Path="ImagePreview"
+                                        UpdateSourceTrigger="PropertyChanged">
                                         <Binding.TargetNullValue>
                                             <ImageSource>Resources/picture.png</ImageSource>
                                         </Binding.TargetNullValue>
@@ -108,13 +110,13 @@
                                 Grid.Column="1">
 
                                 <TextBlock
-                                    Text="{Binding ProductTypeName}"
+                                    Text="{Binding ProductTypeName, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="20"/>
                                 <TextBlock 
                                     Text=" | "
                                     FontSize="20"/>
                                 <TextBlock 
-                                    Text="{Binding ProductName}"
+                                    Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="20"/>
                             </StackPanel>
 
@@ -125,10 +127,10 @@
                                 Grid.Column="1">
 
                                 <TextBlock 
-                                    Text="{Binding VendorCode}"
+                                    Text="{Binding VendorCode, UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="17"/>
                                 <TextBlock
-                                    Text="{Binding Materials, TargetNullValue='None materials'}"
+                                    Text="{Binding Materials, TargetNullValue='None materials', UpdateSourceTrigger=PropertyChanged}"
                                     FontSize="17"/>
 
                             </StackPanel>
@@ -136,7 +138,7 @@
                             <TextBlock
                                 Grid.Column="2"
                                 Margin="0, 10, 0, 0"
-                                Text="{Binding ProductCost}"
+                                Text="{Binding ProductCost, UpdateSourceTrigger=PropertyChanged}"
                                 FontSize="17"/>
                         </Grid>
 

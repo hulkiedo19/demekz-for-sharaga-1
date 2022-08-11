@@ -41,20 +41,16 @@ namespace demekz3
                 "Without materials"
             };
 
-            // Getting list with all elements in database
-            All_products = GetProducts();
+            initialize_default_pages();
+        }
 
-            // getting number of full pages, that contains 4 elements
-            int pages = All_products.Count / 4;
-            // getting number of elements on last page
-            int last_page_elements = All_products.Count % 4;
+        void initialize_default_pages()
+        {
+            if(All_products == null)
+                All_products = GetProducts();
 
-            // splitting all elements into pages
-            GetPages(pages, last_page_elements);
-
-            pages_count = All_pages.Count;
+            GetPages(All_products);
             SetPage();
-
             SetButtons();
         }
 
@@ -68,19 +64,25 @@ namespace demekz3
             return products;
         }
 
-        void GetPages(int count, int last_page_elements)
+        void GetPages(List<Product> products)
         {
-            All_pages = new List<List<Product>>();
+            if(All_pages != null)
+                All_pages.Clear();
+            else
+                All_pages = new List<List<Product>>();
+
             int element_index = 0;
+            int pages = products.Count / 4;
+            int last_page_elements = products.Count % 4;
 
             // here we sets all 4-element pages
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < pages; i++)
             {
                 List<Product> page = new List<Product>();
 
                 for(int j = 0; j < 4; j++)
                 {
-                    page.Add(All_products[element_index++]);
+                    page.Add(products[element_index++]);
                 }
 
                 All_pages.Add(page);
@@ -93,11 +95,21 @@ namespace demekz3
 
                 for(int i = 0; i < last_page_elements; i++)
                 {
-                    page.Add(All_products[element_index++]);
+                    page.Add(products[element_index++]);
                 }
 
                 All_pages.Add(page);
             }
+
+            pages_count = All_pages.Count;
+        }
+
+        void GetPagesWithText(string text)
+        {
+            List<Product> products_with_text = new List<Product>();
+            products_with_text = All_products.Where(p => p.ProductName.ToLower().Contains(TextBoxSearch.Text.ToLower())).ToList();
+
+            GetPages(products_with_text);
         }
 
         void SetPage()
@@ -107,6 +119,8 @@ namespace demekz3
 
         void SetButtons()
         {
+            PagesPanel.Children.Clear();
+
             // sets page left button
             Button left_page = new Button();
             left_page.Content = "<";
@@ -172,12 +186,17 @@ namespace demekz3
             SetPage();
         }
 
-        // these methods are doesn't work
         private void TextBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //UpdateListView();
+            if (TextBoxSearch.Text == "")
+                GetPages(All_products);
+
+            GetPagesWithText(TextBoxSearch.Text);
+            SetPage();
+            SetButtons();
         }
 
+        // these methods are doesn't work
         private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //UpdateListView();
@@ -207,8 +226,6 @@ namespace demekz3
                     case 1: items = items.Where(p => p.Materials == null).ToList(); break;
                 }
             }
-            // ----------------- TEXT SEARCH -----------------
-            if (TextBoxSearch.Text != "") items = items.Where(p => p.ProductName.ToLower().Contains(TextBoxSearch.Text.ToLower())).ToList();
             ListView1.ItemsSource = items; }*/
     }
 }
