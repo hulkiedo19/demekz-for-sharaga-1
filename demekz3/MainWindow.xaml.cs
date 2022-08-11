@@ -199,33 +199,37 @@ namespace demekz3
         // these methods are doesn't work
         private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //UpdateListView();
-        }
-
-        private void ComboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //UpdateListView();
-        }
-
-        /*private void UpdateListView() {
+            /*
             var items = DbContext.Products.ToList();
-            // ----------------- SORT ITEMS -----------------
-            if (ComboSort.SelectedIndex >= 0) {
+            if (ComboSort.SelectedIndex >= 0)
+            {
                 // TODO: материалы херово сортирует
-                switch (ComboSort.SelectedIndex) {
+                switch (ComboSort.SelectedIndex)
+                {
                     case 0: items = items.OrderBy(p => p.ProductCost).ToList(); break;
                     case 1: items = items.OrderByDescending(p => p.ProductCost).ToList(); break;
                     case 2: items = items.OrderByDescending(p => p.Materials).ToList(); break;
                     case 3: items = items.OrderBy(p => p.Materials).ToList(); break;
                 }
             }
-            // ----------------- FILTER ITEMS -----------------
-            if(ComboFilter.SelectedIndex >= 0) {
-                switch(ComboFilter.SelectedIndex) {
+            ListView1.ItemsSource = items;
+            */
+        }
+
+        private void ComboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*
+            var items = DbContext.Products.ToList();
+            if (ComboFilter.SelectedIndex >= 0)
+            {
+                switch (ComboFilter.SelectedIndex)
+                {
                     case 0: items = items.Where(p => p.Materials != null).ToList(); break;
                     case 1: items = items.Where(p => p.Materials == null).ToList(); break;
                 }
             }
-            ListView1.ItemsSource = items; }*/
+            ListView1.ItemsSource = items;
+            */
+        }
     }
 }
